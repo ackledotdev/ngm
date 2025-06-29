@@ -10,6 +10,7 @@ import {
 	validatePhysicalRepoExistence,
 	validateRepoSchema,
 } from './dataschemas';
+import { stdoutWarnLn } from './stdio';
 
 export async function createDataDirsIfNot() {
 	const { config: configDir, data: dataDir } = envPaths('ngm');
@@ -17,9 +18,7 @@ export async function createDataDirsIfNot() {
 	let created = false;
 
 	if (!existsSync(configDir)) {
-		console.log(
-			chalk.yellow(`Config directory does not exist. Creating at ${configDir}`)
-		);
+		stdoutWarnLn(`Config directory does not exist. Creating at ${configDir}`);
 		await mkdir(configDir, { recursive: true }).catch((err) =>
 			console.error('Error creating config directory', err)
 		);
@@ -27,11 +26,9 @@ export async function createDataDirsIfNot() {
 	}
 
 	if (!existsSync(dataDir)) {
-		console.log(
-			chalk.yellow(`Data directory does not exist. Creating at ${dataDir}`)
-		);
+		stdoutWarnLn(`Data directory does not exist. Creating at ${dataDir}`);
 		await mkdir(dataDir, { recursive: true }).catch((err) =>
-			console.error('Error creating data directory', err)
+			stdoutWarnLn(`Error creating data directory: ${err}`)
 		);
 		created = true;
 	}
