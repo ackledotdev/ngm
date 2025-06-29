@@ -7,4 +7,3 @@ Node Git Manager is a simple tool to manage your local Git repositories. It allo
 ```bash
 npm i -g ngm
 ```
-```
