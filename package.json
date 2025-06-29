@@ -1,0 +1,42 @@
+{
+	"name": "ngm",
+	"version": "0.0.0",
+	"description": "Manage your local Git repositories with ease",
+	"keywords": [
+		"git"
+	],
+	"homepage": "https://github.com/ackledotdev/ngm#readme",
+	"bugs": {
+		"url": "https://github.com/ackledotdev/ngm/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ackledotdev/ngm.git"
+	},
+	"license": "MIT",
+	"author": "Akhil Pillai <ackledotdev@gmail.com>",
+	"type": "module",
+	"bin": "./dist/index.js",
+	"scripts": {
+		"start": "tsx src/index.ts",
+		"build": "tsc && npm run fmt",
+		"prepublishOnly": "npm run build",
+		"fmt": "prettier --write ."
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^7.5.3",
+		"chalk": "^5.4.1",
+		"dugite": "^2.7.1",
+		"env-paths": "^3.0.0",
+		"jsoning": "^1.0.1",
+		"yargs": "^18.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^24.0.7",
+		"@types/yargs": "^17.0.33",
+		"npm-check-updates": "^18.0.1",
+		"prettier": "^3.6.2",
+		"tsx": "^4.20.3",
+		"typescript": "^5.8.3"
+	}
+}
