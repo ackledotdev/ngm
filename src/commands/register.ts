@@ -9,7 +9,7 @@ export const desc = 'Register a new local Git repository';
 export const builder = (y: Argv) =>
 	y
 		.example(
-			'$0 register -p /path/to/repodir -n reponame',
+			'$0 register --path /path/to/repodir --nickname reponame',
 			'Register a repository with a nickname'
 		)
 		.option('path', {
