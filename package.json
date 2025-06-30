@@ -1,6 +1,6 @@
 {
 	"name": "node-git-manager",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Manage your local Git repositories with ease",
 	"keywords": [
 		"git"
@@ -22,7 +22,8 @@
 	"scripts": {
 		"start": "tsx src/index.ts",
 		"build": "tsc && npm run fmt",
-		"prepublishOnly": "npm run build",
+		"bump": "bumpp",
+		"prepublishOnly": "npm run build && npm run bump",
 		"fmt": "prettier --write ."
 	},
 	"dependencies": {
@@ -36,6 +37,7 @@
 	"devDependencies": {
 		"@types/node": "^24.0.7",
 		"@types/yargs": "^17.0.33",
+		"bumpp": "^10.2.0",
 		"npm-check-updates": "^18.0.1",
 		"prettier": "^3.6.2",
 		"tsx": "^4.20.3",

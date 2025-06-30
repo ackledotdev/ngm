@@ -6,6 +6,7 @@
 		"moduleResolution": "nodenext",
 		"rootDir": "src/",
 		"rewriteRelativeImportExtensions": true,
+		"resolveJsonModule": true,
 		"outDir": "dist/",
 		"removeComments": true,
 		"noEmitOnError": true,
