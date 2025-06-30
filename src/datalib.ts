@@ -1,15 +1,9 @@
 import { mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
-import chalk from 'chalk';
 import envPaths from 'env-paths';
 import Jsoning from 'jsoning';
 import { join } from 'path';
-import {
-	Quantum,
-	RepoEntry,
-	validatePhysicalRepoExistence,
-	validateRepoSchema,
-} from './dataschemas';
+import { Quantum, RepoEntry, validateRepoSchema } from './dataschemas';
 import { stdoutWarnLn } from './stdio';
 
 export async function createDataDirsIfNot() {
@@ -34,6 +28,17 @@ export async function createDataDirsIfNot() {
 	}
 
 	return created;
+}
+
+export async function listRepos(): Promise<[string, Quantum<RepoEntry>][]> {
+	if (await createDataDirsIfNot()) return [];
+	const { data: dataDir } = envPaths('ngm');
+	return Object.entries(
+		((await new Jsoning(join(dataDir, 'repos.json')).all()) as Record<
+			string,
+			Quantum<RepoEntry>
+		>) || {}
+	);
 }
 
 export async function sanityCheck() {
@@ -81,6 +86,17 @@ export async function registerRepo(
 	await db.set(nickname, { path, nickname, fetchTs: null } satisfies RepoEntry);
 
 	return true;
+}
+
+export async function delRepo(nickname: string) {
+	if (await createDataDirsIfNot()) return false;
+	const { config: configDir, data: dataDir } = envPaths('ngm');
+	const db = new Jsoning(join(dataDir, 'repos.json'));
+	const data = (await db.get(nickname)) as Quantum<RepoEntry>;
+
+	if (!data) return false;
+	await db.delete(nickname);
+	return data;
 }
 
 export async function nicknameUsed(nickname: string) {

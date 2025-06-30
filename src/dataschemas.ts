@@ -47,6 +47,7 @@ export function validateRepoSchema(obj: any): obj is RepoEntry {
 export async function validatePhysicalRepoExistence(
 	path: string
 ): Promise<true | PhysicalRepoValidationError> {
+	if (path.trim() === '') return PhysicalRepoValidationError.INVALID_PATH;
 	if (!existsSync(path)) return PhysicalRepoValidationError.INVALID_PATH;
 
 	if (

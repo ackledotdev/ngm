@@ -8,6 +8,10 @@ export function stdoutWriteLn(message: string) {
 	process.stdout.write(chalk.green(message) + '\n');
 }
 
+export function stdoutWritePlainLn(message: string) {
+	process.stdout.write(message + '\n');
+}
+
 export function stdoutWarnLn(message: string) {
 	process.stdout.write(chalk.yellow(message) + '\n');
 }
