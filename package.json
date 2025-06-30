@@ -1,6 +1,6 @@
 {
 	"name": "ngm",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Manage your local Git repositories with ease",
 	"keywords": [
 		"git"

@@ -1,10 +1,3 @@
-/**
- * NGM: Node Git Manager
- * Manage your local Git repositories with ease
- * Akhil Pillai <ackledotdev@gmail.com> https://ackle.vercel.app
- * MIT License
- */
-
 import { stdout } from 'process';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';

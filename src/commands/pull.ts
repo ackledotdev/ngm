@@ -38,9 +38,9 @@ export const handler = async () => {
 				repo?.path || ''
 			);
 
-			const gitFetchResult =
+			const gitPullResult =
 				physicalRepoValidationResult === true
-					? (await GitProcess.exec(['fetch'], repo!.path)).exitCode
+					? (await GitProcess.exec(['pull'], repo!.path)).exitCode
 					: null;
 
 			const printStr = (() => {
@@ -48,35 +48,29 @@ export const handler = async () => {
 					physicalRepoValidationResult ===
 					PhysicalRepoValidationError.INVALID_PATH
 				)
-					return `Did not fetch ${id} -> INVALID_PATH "${repo?.path ?? ''}"`;
+					return `Did not pull ${id} -> INVALID_PATH "${repo?.path ?? ''}"`;
 				else if (
 					physicalRepoValidationResult === PhysicalRepoValidationError.NO_GIT
 				)
-					return `Did not fetch ${id} -> NO_GIT`;
-				else if (
-					physicalRepoValidationResult === true &&
-					gitFetchResult === 0
-				) {
+					return `Did not pull ${id} -> NO_GIT`;
+				else if (physicalRepoValidationResult === true && gitPullResult === 0) {
 					successCount++;
-					return `Fetched ${id}`;
-				} else if (
-					physicalRepoValidationResult === true &&
-					gitFetchResult !== 0
-				)
-					return `Failed to fetch ${id} -> ${repo!.path} ('git fetch' exited with code ${gitFetchResult!})`;
+					return `Pulled ${id}`;
+				} else if (physicalRepoValidationResult === true && gitPullResult !== 0)
+					return `Failed to pull ${id} -> ${repo!.path} ('git pull' exited with code ${gitPullResult!})`;
 				else return `Action failed on ${id} -> UNKNOWN_ERROR`;
 			})();
 
 			stdoutWritePlainLn(
 				`[ ${
-					physicalRepoValidationResult === true && gitFetchResult === 0
+					physicalRepoValidationResult === true && gitPullResult === 0
 						? chalk.green('✔')
 						: chalk.red('✘')
 				} ] ${printStr}`
 			);
 		}
 		stdoutWritePlainLn(
-			`Finished fetching all repositories. Successfully fetched ${chalk.greenBright(successCount)}/${repos.length} repositories${successCount === repos.length ? chalk.bold.greenBright(' (all)') : chalk.bold.yellowBright(' (' + (repos.length - successCount) + ' failed)')}.`
+			`Finished pulling all repositories. Successfully pulled ${chalk.greenBright(successCount)}/${repos.length} repositories${successCount === repos.length ? chalk.bold.greenBright(' (all)') : chalk.bold.yellowBright(' (' + (repos.length - successCount) + ' failed)')}.`
 		);
 	}
 };
