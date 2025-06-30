@@ -1,15 +1,15 @@
-import { Argv } from 'yargs';
-import { stdoutWarnLn, stdoutWritePlainLn } from '../stdio.ts';
-import { listRepos } from '../datalib.ts';
-import chalk from 'chalk';
-import {
-	validatePhysicalRepoExistence,
-	PhysicalRepoValidationError,
-} from '../dataschemas.ts';
 import { GitProcess } from 'dugite';
+import { listRepos } from '../datalib.ts';
+import {
+	PhysicalRepoValidationError,
+	validatePhysicalRepoExistence,
+} from '../dataschemas.ts';
+import { stdoutWarnLn, stdoutWritePlainLn } from '../stdio.ts';
+import chalk from 'chalk';
+import { Argv } from 'yargs';
 
-export const command = 'pull';
-export const desc = 'Pull all registered local Git repositories';
+export const command = 'push';
+export const desc = 'Push all registered local Git repositories';
 
 export const builder = (y: Argv) =>
 	y
@@ -26,7 +26,7 @@ export const builder = (y: Argv) =>
 		);
 
 export const handler = async (args: { exclude: string[] }) => {
-	stdoutWritePlainLn("Running 'git pull' on all registered repositories...");
+	stdoutWritePlainLn("Running 'git push' on all registered repositories...");
 
 	const repos = await listRepos();
 
@@ -36,7 +36,7 @@ export const handler = async (args: { exclude: string[] }) => {
 			skipCount = 0;
 		for (const [id, repo] of repos) {
 			if (args.exclude?.includes(id)) {
-				stdoutWritePlainLn(`[ ${chalk.yellow('↷')} ] Skipped pulling ${id}`);
+				stdoutWritePlainLn(`[ ${chalk.yellow('↷')} ] Skipped pushing ${id}`);
 				skipCount++;
 				continue;
 			}
@@ -45,9 +45,9 @@ export const handler = async (args: { exclude: string[] }) => {
 				repo?.path || ''
 			);
 
-			const gitPullResult =
+			const gitPushResult =
 				physicalRepoValidationResult === true
-					? (await GitProcess.exec(['pull'], repo!.path)).exitCode
+					? (await GitProcess.exec(['push'], repo!.path)).exitCode
 					: null;
 
 			const printStr = (() => {
@@ -55,22 +55,22 @@ export const handler = async (args: { exclude: string[] }) => {
 					physicalRepoValidationResult ===
 					PhysicalRepoValidationError.INVALID_PATH
 				)
-					return `Did not pull ${id} -> INVALID_PATH "${repo?.path ?? ''}"`;
+					return `Did not push ${id} -> INVALID_PATH "${repo?.path ?? ''}"`;
 				else if (
 					physicalRepoValidationResult === PhysicalRepoValidationError.NO_GIT
 				)
-					return `Did not pull ${id} -> NO_GIT`;
-				else if (physicalRepoValidationResult === true && gitPullResult === 0) {
+					return `Did not push ${id} -> NO_GIT`;
+				else if (physicalRepoValidationResult === true && gitPushResult === 0) {
 					successCount++;
-					return `Pulled ${id}`;
-				} else if (physicalRepoValidationResult === true && gitPullResult !== 0)
-					return `Failed to pull ${id} -> ${repo!.path} ('git pull' exited with code ${gitPullResult!})`;
+					return `Pushed ${id}`;
+				} else if (physicalRepoValidationResult === true && gitPushResult !== 0)
+					return `Failed to push ${id} -> ${repo!.path} ('git push' exited with code ${gitPushResult!})`;
 				else return `Action failed on ${id} -> UNKNOWN_ERROR`;
 			})();
 
 			stdoutWritePlainLn(
 				`[ ${
-					physicalRepoValidationResult === true && gitPullResult === 0
+					physicalRepoValidationResult === true && gitPushResult === 0
 						? chalk.green('✔')
 						: chalk.red('✘')
 				} ] ${printStr}`
@@ -91,7 +91,7 @@ export const handler = async (args: { exclude: string[] }) => {
 		})();
 
 		stdoutWritePlainLn(
-			`Finished pulling all repositories. Successfully pulled ${chalk.greenBright(successCount)}/${repos.length} repositories ${endStr}.`
+			`Finished pushing all repositories. Successfully pushed ${chalk.greenBright(successCount)}/${repos.length} repositories ${endStr}.`
 		);
 	}
 };
