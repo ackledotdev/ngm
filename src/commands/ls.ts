@@ -30,20 +30,19 @@ export const handler = async () => {
 					physicalRepoValidationResult ===
 					PhysicalRepoValidationError.INVALID_PATH
 				)
-					return `\`${repo?.path ?? ''}\`` + ' INVALID_OR_BROKEN_PATH';
+					return '"' + (repo?.path ?? '') + '" INVALID_PATH';
 				else if (
 					physicalRepoValidationResult === PhysicalRepoValidationError.NO_GIT
 				)
-					return;
-				`${repo!.path} (Error: Path is not a Git repository)`;
+					return `${repo!.path} NO_GIT`;
 			})();
 
 			stdoutWritePlainLn(
-				`[${
+				`[ ${
 					physicalRepoValidationResult === true
 						? chalk.green('█')
 						: chalk.red('█')
-				}] ${id} -> ${pathStr}`
+				} ] ${id} -> ${pathStr}`
 			);
 		}
 	}

@@ -16,6 +16,8 @@ const cmd = yargs(args)
 	.usage('$0 <command> [options]')
 	.commandDir('commands', { extensions: ['ts', 'js'] })
 	.help()
+	.strict()
+	// .recommendCommands()
 	.alias('h', 'help');
 
 await cmd.parse();

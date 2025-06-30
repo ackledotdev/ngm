@@ -37,6 +37,20 @@ export const handler = async (argv: { path: string; nickname?: string }) => {
 		process.exit(1);
 	}
 
+	if (nick.length > 24) {
+		stderrWriteLn(
+			`The nickname "${nick}" is too long (${nick.length}/32 characters). Please choose a shorter nickname.`
+		);
+		process.exit(1);
+	}
+
+	if (!/^[a-zA-Z0-9-_\.\/]+$/.test(nick)) {
+		stderrWriteLn(
+			`The nickname "${nick}" contains invalid characters. Only alphanumeric characters, hyphens (-), underscores (_), periods (.), and slashes (/) are allowed.`
+		);
+		process.exit(1);
+	}
+
 	if (await nicknameUsed(nick)) {
 		stderrWriteLn(
 			`The nickname "${nick}" is already in use. Please specify a different nickname.`
