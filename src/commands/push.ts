@@ -21,8 +21,8 @@ export const builder = (y: Argv) =>
 			demandOption: false,
 		})
 		.example(
-			'$0 pull --exclude repo1 --exclude repo2',
-			'Pull changes for all registered repositories except repo1 and repo2'
+			'$0 push --exclude repo1 --exclude repo2',
+			'Push changes for all registered repositories except repo1 and repo2'
 		);
 
 export const handler = async (args: { exclude: string[] }) => {
