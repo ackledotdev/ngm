@@ -23,5 +23,6 @@
 		"exactOptionalPropertyTypes": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true
-	}
+	},
+	"exclude": ["*.config.ts"]
 }
