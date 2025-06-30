@@ -1,6 +1,6 @@
 {
-	"name": "ngm",
-	"version": "0.0.1",
+	"name": "node-git-manager",
+	"version": "0.0.3",
 	"description": "Manage your local Git repositories with ease",
 	"keywords": [
 		"git"
@@ -16,7 +16,9 @@
 	"license": "MIT",
 	"author": "Akhil Pillai <ackledotdev@gmail.com>",
 	"type": "module",
-	"bin": "./dist/index.js",
+	"bin": {
+		"ngm": "dist/index.js"
+	},
 	"scripts": {
 		"start": "tsx src/index.ts",
 		"build": "tsc && npm run fmt",

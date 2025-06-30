@@ -1,11 +1,11 @@
 import chalk from 'chalk';
 import { Argv } from 'yargs';
-import { stdoutWarnLn, stdoutWritePlainLn } from '../stdio';
-import { listRepos } from '../datalib';
+import { stdoutWarnLn, stdoutWritePlainLn } from '../stdio.ts';
+import { listRepos } from '../datalib.ts';
 import {
 	PhysicalRepoValidationError,
 	validatePhysicalRepoExistence,
-} from '../dataschemas';
+} from '../dataschemas.ts';
 
 export const command = 'ls';
 export const desc = 'List all registered local Git repositories';
@@ -35,6 +35,7 @@ export const handler = async () => {
 					physicalRepoValidationResult === PhysicalRepoValidationError.NO_GIT
 				)
 					return `${repo!.path} NO_GIT`;
+				else return `${repo?.path ?? ''} UNKNOWN_ERROR`;
 			})();
 
 			stdoutWritePlainLn(

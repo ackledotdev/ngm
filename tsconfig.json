@@ -2,8 +2,8 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"lib": ["ESNext"],
-		"module": "ESNext",
-		"moduleResolution": "node",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
 		"rootDir": "src/",
 		"paths": { "@/*": ["./src/*"] },
 		"rewriteRelativeImportExtensions": true,

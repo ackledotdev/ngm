@@ -3,8 +3,8 @@ import { existsSync } from 'fs';
 import envPaths from 'env-paths';
 import Jsoning from 'jsoning';
 import { join } from 'path';
-import { Quantum, RepoEntry, validateRepoSchema } from './dataschemas';
-import { stdoutWarnLn } from './stdio';
+import { Quantum, RepoEntry, validateRepoSchema } from './dataschemas.ts';
+import { stdoutWarnLn } from './stdio.ts';
 
 export async function createDataDirsIfNot() {
 	const { config: configDir, data: dataDir } = envPaths('ngm');
@@ -44,14 +44,14 @@ export async function listRepos(): Promise<[string, Quantum<RepoEntry>][]> {
 export async function sanityCheck() {
 	await createDataDirsIfNot();
 
-	const { config: configDir, data: dataDir } = envPaths('ngm');
+	const { data: dataDir } = envPaths('ngm');
 
 	const invalidEntries = Object.entries(
 		((await new Jsoning(join(dataDir, 'repos.json')).all()) as Record<
 			string,
 			Quantum<RepoEntry>
 		>) || {}
-	).filter(([id, repo]) => !validateRepoSchema(repo));
+	).filter(([_, repo]) => !validateRepoSchema(repo));
 
 	return invalidEntries.length === 0 ? true : invalidEntries;
 }
@@ -68,7 +68,7 @@ export async function registerRepo(
 ): Promise<true | RepoRegisterError> {
 	await createDataDirsIfNot();
 
-	const { config: configDir, data: dataDir } = envPaths('ngm');
+	const { data: dataDir } = envPaths('ngm');
 	const db = new Jsoning(join(dataDir, 'repos.json'));
 	const repos = ((await db.all()) as Record<string, Quantum<RepoEntry>>) || {};
 
@@ -90,7 +90,7 @@ export async function registerRepo(
 
 export async function delRepo(nickname: string) {
 	if (await createDataDirsIfNot()) return false;
-	const { config: configDir, data: dataDir } = envPaths('ngm');
+	const { data: dataDir } = envPaths('ngm');
 	const db = new Jsoning(join(dataDir, 'repos.json'));
 	const data = (await db.get(nickname)) as Quantum<RepoEntry>;
 
@@ -102,6 +102,6 @@ export async function delRepo(nickname: string) {
 export async function nicknameUsed(nickname: string) {
 	if (await createDataDirsIfNot()) return false;
 
-	const { config: configDir, data: dataDir } = envPaths('ngm');
+	const { data: dataDir } = envPaths('ngm');
 	return new Jsoning(join(dataDir, 'repos.json')).has(nickname);
 }

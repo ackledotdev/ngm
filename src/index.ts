@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { stdout } from 'process';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';

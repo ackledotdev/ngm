@@ -16,10 +16,10 @@ Commands for managing registered local repositories:
 ## Installation
 
 ```bash
-npm i -g ngm
-pnpm add -g ngm
-yarn global add ngm
-bun install -g ngm
+npm i -g node-git-manager
+pnpm add -g node-git-manager
+yarn global add node-git-manager
+bun install -g node-git-manager
 
 ngm --help
 ```
@@ -27,7 +27,7 @@ ngm --help
 ## Uninstallation
 
 ```bash
-npm rm -g ngm
+npm rm -g node-git-manager
 ```
 
 NGM uses [`env-paths`](https://www.npmjs.com/package/env-paths) to determine its local data storage location. To completely remove NGM and its stored data from your system, you can delete the following directories:

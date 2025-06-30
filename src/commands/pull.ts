@@ -1,11 +1,11 @@
 import { Argv } from 'yargs';
-import { stdoutWarnLn, stdoutWritePlainLn } from '../stdio';
-import { listRepos } from '../datalib';
+import { stdoutWarnLn, stdoutWritePlainLn } from '../stdio.ts';
+import { listRepos } from '../datalib.ts';
 import chalk from 'chalk';
 import {
 	validatePhysicalRepoExistence,
 	PhysicalRepoValidationError,
-} from '../dataschemas';
+} from '../dataschemas.ts';
 import { GitProcess } from 'dugite';
 
 export const command = 'pull';

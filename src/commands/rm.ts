@@ -1,8 +1,6 @@
-import chalk from 'chalk';
-import envPaths from 'env-paths';
 import { Argv } from 'yargs';
-import { stderrWriteLn, stdoutWriteLn } from '../stdio';
-import { delRepo } from '../datalib';
+import { stderrWriteLn, stdoutWriteLn } from '../stdio.ts';
+import { delRepo } from '../datalib.ts';
 
 export const command = 'rm <nickname>';
 export const desc = 'Remove a registered local Git repository by its nickname';

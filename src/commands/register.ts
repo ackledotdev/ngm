@@ -1,8 +1,7 @@
 import { Argv } from 'yargs';
-import { nicknameUsed, registerRepo, RepoRegisterError } from '../datalib';
-import chalk from 'chalk';
+import { nicknameUsed, registerRepo, RepoRegisterError } from '../datalib.ts';
 import { resolve } from 'path';
-import { stderrWriteLn, stdoutWriteLn } from '../stdio';
+import { stderrWriteLn, stdoutWriteLn } from '../stdio.ts';
 
 export const command = 'register [options]';
 export const desc = 'Register a new local Git repository';
