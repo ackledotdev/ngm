@@ -98,7 +98,7 @@ export const handler = async (args: { exclude: string[] }) => {
 		})();
 
 		stdoutWritePlainLn(
-			`Finished pulling all repositories. Successfully pulled ${chalk.greenBright(successCount)}/${repos.length} repositories ${endStr}.`
+			`Finished syncing all repositories. Successfully synced ${chalk.greenBright(successCount)}/${repos.length} repositories ${endStr}.`
 		);
 	}
 };
