@@ -13,7 +13,8 @@ const cmd = yargs(args)
 	.help()
 	.strict()
 	// .recommendCommands()
-	.alias('h', 'help');
+	.alias('h', 'help')
+	.alias('v', 'version');
 
 await cmd.parse();
 if (args.length === 0) stdout.write((await cmd.getHelp()) + '\n');
