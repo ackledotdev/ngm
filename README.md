@@ -6,6 +6,9 @@ Featured operations:
 
 - `fetch`: Fetch updates for all registered repositories.
 - `pull`: Pull updates for all registered repositories.
+- `push`: Push changes for all registered repositories.
+- `stat`: Show the status of all registered repositories.
+- `sync`: Synchronize all registered repositories (fetch and pull).
 
 Commands for managing registered local repositories:
 
