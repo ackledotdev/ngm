@@ -27,7 +27,7 @@
 		"fmt": "prettier --write ."
 	},
 	"dependencies": {
-		"@inquirer/prompts": "^7.5.3",
+		"@inquirer/prompts": "^7.6.0",
 		"chalk": "^5.4.1",
 		"dugite": "^2.7.1",
 		"env-paths": "^3.0.0",
@@ -35,7 +35,7 @@
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"@types/node": "^24.0.7",
+		"@types/node": "^24.0.13",
 		"@types/yargs": "^17.0.33",
 		"bumpp": "^10.2.0",
 		"npm-check-updates": "^18.0.1",
