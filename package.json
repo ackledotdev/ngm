@@ -1,6 +1,6 @@
 {
 	"name": "node-git-manager",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Manage your local Git repositories with ease",
 	"keywords": [
 		"git"
