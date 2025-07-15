@@ -47,23 +47,23 @@ export const handler = async () => {
 				)
 					return (
 						chalk.bold.underline(`Status of ${id}:`) +
-							'\n' +
-							gitStatResult!.stdout
-								.trimEnd()
-								.split('\n')
-								.map((line) =>
-									line
-										.split('')
-										.map((s, i) =>
-											i === 0
-												? chalk.bold.green(s)
-												: i === 1
-													? chalk.bold.red(s)
-													: s
-										)
-										.join('')
-								)
-								.join('\n') || '   Working tree clean'
+						'\n' +
+						(gitStatResult!.stdout
+							.trimEnd()
+							.split('\n')
+							.map((line) =>
+								line
+									.split('')
+									.map((s, i) =>
+										i === 0
+											? chalk.bold.green(s)
+											: i === 1
+												? chalk.bold.red(s)
+												: s
+									)
+									.join('')
+							)
+							.join('\n') || '   Working tree clean')
 					);
 				else return `Action failed on ${id} -> UNKNOWN_ERROR`;
 			})();
