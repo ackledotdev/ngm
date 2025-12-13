@@ -18,11 +18,13 @@ ngm --help
 ### Shellper (shell helper) Setup
 
 Add to shell startup file:
+
 ```bash
-eval $(ngm shell)
+eval "$(ngm shell)"
 ```
 
 Available shellpers:
+
 ```bash
 ngmcd <nickname> # automatically changes directory to the target repository
 ```

@@ -1,6 +1,6 @@
 {
 	"name": "node-git-manager",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Manage your local Git repositories with ease",
 	"keywords": [
 		"git"
@@ -21,7 +21,7 @@
 	},
 	"scripts": {
 		"start": "tsx src/index.ts",
-		"build": "npm run shellpercopy && npm run fmt",
+		"build": "npm run shellpercopy && npm run fmt && rm -drf dist && tsc",
 		"bump": "bumpp",
 		"fmt": "prettier --write .",
 		"prepublishOnly": "npm run build && npm run bump",
