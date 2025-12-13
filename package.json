@@ -1,6 +1,6 @@
 {
 	"name": "node-git-manager",
-	"version": "0.1.5",
+	"version": "0.2.0",
 	"description": "Manage your local Git repositories with ease",
 	"keywords": [
 		"git"
@@ -21,26 +21,27 @@
 	},
 	"scripts": {
 		"start": "tsx src/index.ts",
-		"build": "tsc && npm run fmt",
+		"build": "npm run shellpercopy && npm run fmt",
 		"bump": "bumpp",
+		"fmt": "prettier --write .",
 		"prepublishOnly": "npm run build && npm run bump",
-		"fmt": "prettier --write ."
+		"shellpercopy": "tsx scripts/shellperCopy.ts"
 	},
 	"dependencies": {
-		"@inquirer/prompts": "^7.6.0",
-		"chalk": "^5.4.1",
+		"chalk": "^5.6.2",
 		"dugite": "^2.7.1",
 		"env-paths": "^3.0.0",
 		"jsoning": "^1.0.1",
+		"node-git-manager": "^0.1.5",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"@types/node": "^24.0.13",
-		"@types/yargs": "^17.0.33",
-		"bumpp": "^10.2.0",
-		"npm-check-updates": "^18.0.1",
-		"prettier": "^3.6.2",
-		"tsx": "^4.20.3",
-		"typescript": "^5.8.3"
+		"@types/node": "^25.0.1",
+		"@types/yargs": "^17.0.35",
+		"bumpp": "^10.3.2",
+		"npm-check-updates": "^19.2.0",
+		"prettier": "^3.7.4",
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3"
 	}
 }

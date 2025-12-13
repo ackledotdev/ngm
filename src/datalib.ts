@@ -99,6 +99,17 @@ export async function delRepo(nickname: string) {
 	return data;
 }
 
+/**
+ * @returns {false | Quantum<RepoEntry> | number} The repository entry if found, otherwise the number of registered repositories, or false if data dirs were just created.
+ */
+export async function getRepo(nickname: string) {
+	if (await createDataDirsIfNot()) return false;
+	const { data: dataDir } = envPaths('ngm');
+	const db = new Jsoning(join(dataDir, 'repos.json'));
+	const data = (await db.get(nickname)) as Quantum<RepoEntry>;
+	return data ?? Object.keys(await db.all()).length;
+}
+
 export async function nicknameUsed(nickname: string) {
 	if (await createDataDirsIfNot()) return false;
 
