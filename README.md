@@ -21,12 +21,14 @@ Add to shell startup file:
 
 ```bash
 eval "$(ngm shell)"
+alias ']'='ngmcd' # optional alias for quicker use
 ```
 
 Available shellpers:
 
 ```bash
 ngmcd <nickname> # automatically changes directory to the target repository
+] <nickname> # or whatever alias you configured, if any
 ```
 
 ## Uninstallation
