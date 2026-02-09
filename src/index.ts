@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
-import { stdout } from 'process';
+if (process.argv.length > 2 && process.argv[2] === 'shell') {
+	process.stdout.write(
+		await import('./commands/shell.ts').then((mod) => mod.shellpers)
+	);
+	process.exit(0);
+}
+
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -17,4 +23,4 @@ const cmd = yargs(args)
 	.alias('v', 'version');
 
 await cmd.parse();
-if (args.length === 0) stdout.write((await cmd.getHelp()) + '\n');
+if (args.length === 0) process.stdout.write((await cmd.getHelp()) + '\n');

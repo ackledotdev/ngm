@@ -8,7 +8,7 @@ export const builder = (y: Argv) =>
 	y.example('$0 shell', 'Output shell helper functions.');
 
 // SHELLPERCOPY REGION BEGIN
-const shellpers = `# Source this in your shell configuration to enable helper functions for NGM.
+export const shellpers = `# Source this in your shell configuration to enable helper functions for NGM.
 #   eval "$(ngm shell)"
 #
 # The 'ngm shell' command outputs this file's contents to stdout.
