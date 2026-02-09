@@ -16,7 +16,7 @@ const shellpers = await readFile(sf, 'utf-8');
 
 const newf = fc.replace(
 	/\/\/ SHELLPERCOPY REGION BEGIN[\s\S]*?\/\/ SHELLPERCOPY REGION END/,
-	`// SHELLPERCOPY REGION BEGIN\nconst shellpers = \`${shellpers.replace(/`/g, '\\`')}\`;\n// SHELLPERCOPY REGION END`
+	`// SHELLPERCOPY REGION BEGIN\nexport const shellpers = \`${shellpers.replace(/`/g, '\\`')}\`;\n// SHELLPERCOPY REGION END`
 );
 
 await writeFile(f, newf, 'utf-8');
