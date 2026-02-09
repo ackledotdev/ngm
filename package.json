@@ -1,6 +1,6 @@
 {
 	"name": "node-git-manager",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Manage your local Git repositories with ease",
 	"keywords": [
 		"git"
@@ -32,15 +32,14 @@
 		"dugite": "^2.7.1",
 		"env-paths": "^3.0.0",
 		"jsoning": "^1.0.1",
-		"node-git-manager": "^0.1.5",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"@types/node": "^25.0.1",
+		"@types/node": "^25.2.2",
 		"@types/yargs": "^17.0.35",
-		"bumpp": "^10.3.2",
-		"npm-check-updates": "^19.2.0",
-		"prettier": "^3.7.4",
+		"bumpp": "^10.4.1",
+		"npm-check-updates": "^19.3.2",
+		"prettier": "^3.8.1",
 		"tsx": "^4.21.0",
 		"typescript": "^5.9.3"
 	}
