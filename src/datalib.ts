@@ -53,7 +53,9 @@ export async function listRepos(): Promise<[string, Quantum<RepoEntry>][]> {
  * Validate entries in the repos database
  * @returns {Promise<true | [string, Quantum<RepoEntry>][]>} True if all entries are valid, otherwise an array of invalid entries with their keys
  */
-export async function sanityCheck(): Promise<true | [string, Quantum<RepoEntry>][]> {
+export async function sanityCheck(): Promise<
+	true | [string, Quantum<RepoEntry>][]
+> {
 	await createDataDirsIfNot();
 
 	const { data: dataDir } = envPaths('ngm');
