@@ -6,7 +6,7 @@ import {
 	validatePhysicalRepoExistence,
 	PhysicalRepoValidationError,
 } from '../dataschemas.ts';
-import { GitProcess } from 'dugite';
+import { exec } from 'dugite';
 
 export const command = 'pull';
 export const desc = 'Pull all registered local Git repositories';
@@ -47,7 +47,7 @@ export const handler = async (args: { exclude: string[] }) => {
 
 			const gitPullResult =
 				physicalRepoValidationResult === true
-					? (await GitProcess.exec(['pull'], repo!.path)).exitCode
+					? (await exec(['pull'], repo!.path)).exitCode
 					: null;
 
 			const printStr = (() => {

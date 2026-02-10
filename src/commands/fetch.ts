@@ -6,7 +6,7 @@ import {
 	validatePhysicalRepoExistence,
 	PhysicalRepoValidationError,
 } from '../dataschemas.ts';
-import { GitProcess } from 'dugite';
+import { exec } from 'dugite';
 
 export const command = 'fetch';
 export const desc = 'Fetch updates for all registered local Git repositories';
@@ -24,12 +24,12 @@ export const handler = async () => {
 		let successCount = 0;
 		for (const [id, repo] of repos) {
 			const physicalRepoValidationResult = await validatePhysicalRepoExistence(
-				repo?.path || ''
+				repo?.path ?? ''
 			);
 
 			const gitFetchResult =
 				physicalRepoValidationResult === true
-					? (await GitProcess.exec(['fetch'], repo!.path)).exitCode
+					? (await exec(['fetch'], repo!.path)).exitCode
 					: null;
 
 			const printStr = (() => {

@@ -6,7 +6,11 @@ import { join } from 'path';
 import { Quantum, RepoEntry, validateRepoSchema } from './dataschemas.ts';
 import { stdoutWarnLn } from './stdio.ts';
 
-export async function createDataDirsIfNot() {
+/**
+ * Create data directories if they do not exist
+ * @returns {Promise<boolean>} True if any directories were created, otherwise false
+ */
+export async function createDataDirsIfNot(): Promise<boolean> {
 	const { config: configDir, data: dataDir } = envPaths('ngm');
 
 	let created = false;
@@ -30,6 +34,10 @@ export async function createDataDirsIfNot() {
 	return created;
 }
 
+/**
+ * List all registered repositories
+ * @returns {Promise<[string, Quantum<RepoEntry>][]>} A list of registered repositories
+ */
 export async function listRepos(): Promise<[string, Quantum<RepoEntry>][]> {
 	if (await createDataDirsIfNot()) return [];
 	const { data: dataDir } = envPaths('ngm');
@@ -41,7 +49,11 @@ export async function listRepos(): Promise<[string, Quantum<RepoEntry>][]> {
 	);
 }
 
-export async function sanityCheck() {
+/**
+ * Validate entries in the repos database
+ * @returns {Promise<true | [string, Quantum<RepoEntry>][]>} True if all entries are valid, otherwise an array of invalid entries with their keys
+ */
+export async function sanityCheck(): Promise<true | [string, Quantum<RepoEntry>][]> {
 	await createDataDirsIfNot();
 
 	const { data: dataDir } = envPaths('ngm');
@@ -56,12 +68,25 @@ export async function sanityCheck() {
 	return invalidEntries.length === 0 ? true : invalidEntries;
 }
 
+/**
+ * @enum RepoRegisterError
+ * @description Errors that can occur when registering a repository
+ * @member INVALID_PATH The provided path does not exist
+ * @member NO_GIT The provided path is not a Git repository
+ * @member ALREADY_REGISTERED The provided path or nickname is already registered
+ */
 export enum RepoRegisterError {
 	INVALID_PATH,
 	NO_GIT,
 	ALREADY_REGISTERED,
 }
 
+/**
+ * Register a new repository
+ * @param path {string} The file system path to the repository
+ * @param nickname {string} The nickname to register the repository under
+ * @returns {Promise<true | RepoRegisterError>} True on success or an error on failure
+ */
 export async function registerRepo(
 	path: string,
 	nickname: string
@@ -88,7 +113,12 @@ export async function registerRepo(
 	return true;
 }
 
-export async function delRepo(nickname: string) {
+/**
+ * Attempt to delete a repository entry
+ * @param nickname {string} The nickname of the repository to delete
+ * @returns {Promise<false | RepoEntry>} The deleted repository entry if it existed and was deleted, or false if it did not exist or data dirs were just created.
+ */
+export async function delRepo(nickname: string): Promise<false | RepoEntry> {
 	if (await createDataDirsIfNot()) return false;
 	const { data: dataDir } = envPaths('ngm');
 	const db = new Jsoning(join(dataDir, 'repos.json'));
@@ -100,9 +130,11 @@ export async function delRepo(nickname: string) {
 }
 
 /**
- * @returns {false | Quantum<RepoEntry> | number} The repository entry if found, otherwise the number of registered repositories, or false if data dirs were just created.
+ * @returns {Promise<false | Quantum<RepoEntry> | number>} The repository entry if found, otherwise the number of registered repositories, or false if data dirs were just created.
  */
-export async function getRepo(nickname: string) {
+export async function getRepo(
+	nickname: string
+): Promise<false | Quantum<RepoEntry> | number> {
 	if (await createDataDirsIfNot()) return false;
 	const { data: dataDir } = envPaths('ngm');
 	const db = new Jsoning(join(dataDir, 'repos.json'));
@@ -110,7 +142,12 @@ export async function getRepo(nickname: string) {
 	return data ?? Object.keys(await db.all()).length;
 }
 
-export async function nicknameUsed(nickname: string) {
+/**
+ * Check if a nickname is already in use
+ * @param nickname {string} The nickname to check
+ * @returns {Promise<boolean>}
+ */
+export async function nicknameUsed(nickname: string): Promise<boolean> {
 	if (await createDataDirsIfNot()) return false;
 
 	const { data: dataDir } = envPaths('ngm');

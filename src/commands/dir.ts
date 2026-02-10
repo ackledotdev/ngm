@@ -25,8 +25,14 @@ export const builder = (y: Argv) =>
 			default: false,
 		});
 
-export const handler = async (argv: { nickname: string; quiet?: boolean }) => {
+export const handler = async (argv: { nickname?: string; quiet?: boolean }) => {
 	const { nickname, quiet = false } = argv;
+
+	if (!nickname || nickname.trim().length === 0) {
+		quiet || stderrWarnLn('No nickname provided.');
+		process.exitCode = 1;
+		return;
+	}
 
 	const repo = await getRepo(nickname);
 

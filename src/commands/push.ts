@@ -1,4 +1,4 @@
-import { GitProcess } from 'dugite';
+import { exec } from 'dugite';
 import { listRepos } from '../datalib.ts';
 import {
 	PhysicalRepoValidationError,
@@ -47,7 +47,7 @@ export const handler = async (args: { exclude: string[] }) => {
 
 			const gitPushResult =
 				physicalRepoValidationResult === true
-					? (await GitProcess.exec(['push'], repo!.path)).exitCode
+					? (await exec(['push'], repo!.path)).exitCode
 					: null;
 
 			const printStr = (() => {

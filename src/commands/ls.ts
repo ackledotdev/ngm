@@ -21,7 +21,7 @@ export const handler = async () => {
 		stdoutWritePlainLn('Registered repositories:');
 		for (const [id, repo] of repos) {
 			const physicalRepoValidationResult = await validatePhysicalRepoExistence(
-				repo?.path || ''
+				repo?.path ?? ''
 			);
 
 			const pathStr = (() => {

@@ -1,4 +1,4 @@
-import { GitProcess } from 'dugite';
+import { exec } from 'dugite';
 import { existsSync } from 'fs';
 import { JSONValueRecord } from 'jsoning';
 import { join } from 'path';
@@ -51,7 +51,7 @@ export async function validatePhysicalRepoExistence(
 	if (!existsSync(path)) return PhysicalRepoValidationError.INVALID_PATH;
 
 	if (
-		(await GitProcess.exec(['status'], path)).exitCode !== 0 ||
+		(await exec(['status'], path)).exitCode !== 0 ||
 		!existsSync(join(path, '.git'))
 	) {
 		return PhysicalRepoValidationError.NO_GIT;

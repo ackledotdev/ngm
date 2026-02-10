@@ -6,7 +6,7 @@ import {
 	validatePhysicalRepoExistence,
 	PhysicalRepoValidationError,
 } from '../dataschemas.ts';
-import { GitProcess } from 'dugite';
+import { exec } from 'dugite';
 
 export const command = 'stat';
 export const desc = 'Show the status of all registered local Git repositories';
@@ -28,7 +28,7 @@ export const handler = async () => {
 
 			const gitStatResult =
 				physicalRepoValidationResult === true
-					? await GitProcess.exec(['status', '-s'], repo!.path)
+					? await exec(['status', '-s'], repo!.path)
 					: null;
 
 			const printStr = (() => {

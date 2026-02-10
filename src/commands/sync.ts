@@ -6,7 +6,7 @@ import {
 	validatePhysicalRepoExistence,
 	PhysicalRepoValidationError,
 } from '../dataschemas.ts';
-import { GitProcess } from 'dugite';
+import { exec } from 'dugite';
 
 export const command = 'sync';
 export const desc =
@@ -47,12 +47,12 @@ export const handler = async (args: { exclude: string[] }) => {
 
 			const gitPullResult =
 				physicalRepoValidationResult === true
-					? (await GitProcess.exec(['pull'], repo!.path)).exitCode
+					? (await exec(['pull'], repo!.path)).exitCode
 					: null;
 
 			const gitPushResult =
 				gitPullResult === 0
-					? (await GitProcess.exec(['push'], repo!.path)).exitCode
+					? (await exec(['push'], repo!.path)).exitCode
 					: null;
 
 			const printStr = (() => {
