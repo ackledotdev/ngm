@@ -47,7 +47,7 @@ export const handler = async (args: { exclude: string[] }) => {
 
 			const gitPullResult =
 				physicalRepoValidationResult === true
-					? (await exec(['pull'], repo!.path)).exitCode
+					? (await exec(['pull', '--no-rebase'], repo!.path)).exitCode
 					: null;
 
 			const gitPushResult =
